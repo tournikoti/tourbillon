@@ -1,2 +1,6 @@
 services:
-    
+    request:
+        class: Tourbillon\Request\HttpRequest
+    router:
+        class: Tourbillon\Router\Router
+        arguments: [@request]
