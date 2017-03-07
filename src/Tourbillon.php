@@ -2,9 +2,11 @@
 
 namespace Tourbillon;
 
-use Tourbillon\Configurator\ConfiguratorFactory;
-use Tourbillon\ServiceContainer\ServiceLocator;
 use Exception;
+use Tourbillon\Configurator\ConfiguratorFactory;
+use Tourbillon\Controller\Controller;
+use Tourbillon\Router\Route;
+use Tourbillon\ServiceContainer\ServiceLocator;
 
 /**
  * Description of Tourbillon
@@ -29,17 +31,55 @@ class Tourbillon
     public function run()
     {
         $configurator = ConfiguratorFactory::createInstance($this->configPath);
-        
-        $this->serviceLocator = new ServiceLocator((array) $configurator->get('parameters'), (array) ConfiguratorFactory::createInstance(realpath(__DIR__ . '/../config/services.neon'))->get('services'));
+
+        $this->serviceLocator = new ServiceLocator((array) $configurator->get('parameters'), (array) ConfiguratorFactory::createInstance(realpath(__DIR__.'/../config/services.neon'))->get('services'));
         $this->serviceLocator->add((array) $configurator->get('services'));
 
-        $router = $this->serviceLocator->get('router');
-
         if (!is_array($configurator->get('routing'))) {
-            throw new Exception("No routes exist for your application. please see your " . $this->configPath . " file");
+            throw new Exception("No routes exist for your application. please see your ".$this->configPath." file");
         }
 
-        $router->addRoutes($configurator->get('routing'));
+        $this->serviceLocator->get('router')->addRoutes($configurator->get('routing'));
+
+        $this->dispatcher();
+    }
+
+    /**
+     * Execute la methode du controller associe a l'URL
+     */
+    private function dispatcher()
+    {
+        $route = $this->serviceLocator->get('router')->getByRequest();
+
+        $controller = $this->getController($route);
+
+        $view = $this->getView($route, $controller);
+    }
+
+    private function getController(Route $route)
+    {
+        $class = $route->getController() . 'Controller';
+        if (!class_exists($class)) {
+            throw new Exception("Your Controller {$class} Does not exist");
+        }
+
+        $controller = new $class();
+
+        if (!$controller instanceof Controller) {
+            throw new Exception("Your Controller {$class} need to extend " . Controller::class);
+        }
+        
+        return $controller;
+    }
+
+    private function getView(Route $route, Controller $controller)
+    {
+        $action = $route->getAction() . 'Action';
+        if (!is_callable(array($controller, $action))) {
+            throw new Exception("Method {$action}() is not defined in controller " . get_class($controller));
+        }
+
+        return call_user_func_array(array($controller, $action), $route->getParam());
     }
 
     /**
