@@ -27,8 +27,10 @@ class Tourbillon
      */
     public function run()
     {
+        $this->serviceLocator = new ServiceLocator(ConfiguratorFactory::createInstance('../config/services.neon'));
+        
         $configurator = ConfiguratorFactory::createInstance($this->configPath);
-        $this->serviceLocator = new ServiceLocator((array) $configurator->get('services'));
+        $this->serviceLocator->add((array) $configurator->get('services'));
     }
 
     /**
