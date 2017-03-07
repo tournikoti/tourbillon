@@ -4,6 +4,7 @@ namespace Tourbillon;
 
 use Tourbillon\Configurator\ConfiguratorFactory;
 use Tourbillon\ServiceContainer\ServiceLocator;
+use Exception;
 
 /**
  * Description of Tourbillon
@@ -33,8 +34,12 @@ class Tourbillon
         $this->serviceLocator->add((array) $configurator->get('services'));
 
         $router = $this->serviceLocator->get('router');
-        
-        $router->addRoutes((array) $configurator->get('routing'));
+
+        if (!is_array($configurator->get('routing'))) {
+            throw new Exception("No routes exist for your application. please see your " . $this->configPath . " file");
+        }
+
+        $router->addRoutes($configurator->get('routing'));
     }
 
     /**
