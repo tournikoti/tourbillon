@@ -27,7 +27,7 @@ class Tourbillon
      */
     public function run()
     {
-        $configurator = Configurator::getInstance($this->configPath);
+        $configurator = Configurator\ConfiguratorFactory::createInstance($this->configPath);
         $this->serviceLocator = new ServiceLocator((array) $configurator->get('services'));
     }
 
