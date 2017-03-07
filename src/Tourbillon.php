@@ -34,7 +34,7 @@ class Tourbillon
 
         $router = $this->serviceLocator->get('router');
         
-        $router->addRoutes($configurator->get('routing'));
+        $router->addRoutes((array) $configurator->get('routing'));
     }
 
     /**
