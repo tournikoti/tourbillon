@@ -31,6 +31,10 @@ class Tourbillon
         
         $this->serviceLocator = new ServiceLocator((array) $configurator->get('parameters'), (array) ConfiguratorFactory::createInstance(realpath(__DIR__ . '/../config/services.neon'))->get('services'));
         $this->serviceLocator->add((array) $configurator->get('services'));
+
+        $router = $this->serviceLocator->get('router');
+        
+        $router->addRoutes($configurator->get('routing'));
     }
 
     /**
