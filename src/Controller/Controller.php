@@ -9,5 +9,8 @@ namespace Tourbillon\Controller;
  */
 abstract class Controller
 {
-    
+    protected function render($path, array $params = array())
+    {
+        
+    }
 }
