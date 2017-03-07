@@ -2,7 +2,7 @@
 
 namespace Tourbillon;
 
-use Tourbillon\Configurator\Configurator;
+use Tourbillon\Configurator\ConfiguratorFactory;
 use Tourbillon\ServiceContainer\ServiceLocator;
 
 /**
@@ -27,7 +27,7 @@ class Tourbillon
      */
     public function run()
     {
-        $configurator = Configurator\ConfiguratorFactory::createInstance($this->configPath);
+        $configurator = ConfiguratorFactory::createInstance($this->configPath);
         $this->serviceLocator = new ServiceLocator((array) $configurator->get('services'));
     }
 
