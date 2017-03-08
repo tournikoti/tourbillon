@@ -4,3 +4,6 @@ services:
     router:
         class: Tourbillon\Router\Router
         arguments: [@request]
+    response:
+        class: Tourbillon\Response\HttpResponse
+
