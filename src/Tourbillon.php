@@ -33,7 +33,8 @@ class Tourbillon
         $configurator = ConfiguratorFactory::createInstance($this->configPath);
 
         $this->serviceLocator = new ServiceLocator((array) $configurator->get('parameters'), (array) ConfiguratorFactory::createInstance(realpath(__DIR__.'/../config/services.neon'))->get('services'));
-        $this->serviceLocator->add((array) $configurator->get('services'));
+        $this->serviceLocator->addServices((array) $configurator->get('services'));
+        $this->serviceLocator->addService('config', $configurator);
 
         if (!is_array($configurator->get('routing'))) {
             throw new Exception("No routes exist for your application. please see your ".$this->configPath." file");
@@ -66,7 +67,7 @@ class Tourbillon
             throw new Exception("Your Controller {$class} Does not exist");
         }
 
-        $controller = new $class();
+        $controller = new $class($this->serviceLocator);
 
         if (!$controller instanceof Controller) {
             throw new Exception("Your Controller {$class} need to extend " . Controller::class);
