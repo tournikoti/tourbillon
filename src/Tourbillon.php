@@ -54,6 +54,9 @@ class Tourbillon
         $controller = $this->getController($route);
 
         $view = $this->getView($route, $controller);
+        
+        $this->serviceLocator->get('response')->setView($view);
+        $this->serviceLocator->get('response')->send();
     }
 
     private function getController(Route $route)
@@ -79,7 +82,13 @@ class Tourbillon
             throw new Exception("Method {$action}() is not defined in controller " . get_class($controller));
         }
 
-        return call_user_func_array(array($controller, $action), $route->getParam());
+        $view = call_user_func_array(array($controller, $action), $route->getParam());
+        
+        if (!$view instanceof View) {
+            throw new Exception("The action {$action} of the controller " . get_class($controller) . " must return instance of " . View::class);
+        }
+        
+        return $view;
     }
 
     /**
