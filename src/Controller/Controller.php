@@ -2,6 +2,8 @@
 
 namespace Tourbillon\Controller;
 
+use Tourbillon\ServiceContainer\ServiceLocator;
+
 /**
  * Description of Controller
  *
