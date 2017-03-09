@@ -56,7 +56,7 @@ class Tourbillon
         $view = $this->getView($route, $controller);
         
         $this->serviceLocator->get('response')->setView($view);
-        $this->serviceLocator->get('response')->send();
+        $this->serviceLocator->get('response')->render();
     }
 
     private function getController(Route $route)
