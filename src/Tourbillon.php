@@ -34,11 +34,12 @@ abstract class Tourbillon
     public function run()
     {
         $configurator = ConfiguratorFactory::createInstance(realpath(__DIR__.'/../config/services.neon'));
-        $configurator->importFile($this->configPath);
         $configurator->setParameters([
             'app.root_dir' => $this->getRootDir()
         ]);
-
+        
+        $configurator->importFile($this->configPath);
+        
         $this->serviceLocator = new ServiceLocator($configurator, (array) $configurator->get('services'));
         $this->serviceLocator->addServices((array) $configurator->get('services'));
         $this->serviceLocator->addService('config', $configurator);
