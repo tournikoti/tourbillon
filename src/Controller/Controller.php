@@ -20,7 +20,8 @@ abstract class Controller
     
     protected function render($path, array $params = array())
     {
-        return $this->serviceLocator->get('view.factory')->create($path, $params);
+        $viewConfig = $this->getConfig()->get('view');
+        return $this->serviceLocator->get('view.factory')->create($path, $params, $viewConfig['template']);
     }
 
     protected function getConfig()

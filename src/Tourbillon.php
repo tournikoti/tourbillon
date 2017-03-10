@@ -5,6 +5,7 @@ namespace Tourbillon;
 use Exception;
 use Tourbillon\Configurator\ConfiguratorFactory;
 use Tourbillon\Controller\Controller;
+use Tourbillon\Response\View;
 use Tourbillon\Router\Route;
 use Tourbillon\ServiceContainer\ServiceLocator;
 
@@ -87,7 +88,7 @@ class Tourbillon
         $view = call_user_func_array(array($controller, $action), $route->getParam());
         
         if (!$view instanceof View) {
-            throw new Exception("The action {$action} of the controller " . get_class($controller) . " must return instance of " . View::class);
+            throw new Exception("The action {$action} of the controller " . get_class($controller) . " must return instance of " .View::class);
         }
         
         return $view;
