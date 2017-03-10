@@ -3,6 +3,7 @@
 namespace Tourbillon;
 
 use Exception;
+use ReflectionObject;
 use Tourbillon\Configurator\ConfiguratorFactory;
 use Tourbillon\Controller\Controller;
 use Tourbillon\Response\View;
@@ -14,10 +15,11 @@ use Tourbillon\ServiceContainer\ServiceLocator;
  *
  * @author gjean
  */
-class Tourbillon
+abstract class Tourbillon
 {
     protected $configPath;
     protected $mode;
+    private $rootDir;
 
     /**
      *
@@ -92,6 +94,20 @@ class Tourbillon
         }
         
         return $view;
+    }
+
+    /**
+     *
+     * @return string
+     */
+    public function getRootDir()
+    {
+        if (null === $this->rootDir) {
+            $r = new ReflectionObject($this);
+            $this->rootDir = dirname($r->getFileName());
+        }
+
+        return $this->rootDir;
     }
 
     /**
