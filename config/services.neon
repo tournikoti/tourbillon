@@ -1,9 +1,11 @@
 services:
     request:
         class: Tourbillon\Request\HttpRequest
-    router:
+    router.provider:
         class: Tourbillon\Provider\RouterProvider
+    router:
+        class: Tourbillon\Router\Router
         arguments: [@request]
+        factory: [@router.provider, "createInstance"]
     response:
         class: Tourbillon\Response\HttpResponse
-
