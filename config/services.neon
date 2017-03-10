@@ -7,5 +7,7 @@ services:
         class: Tourbillon\Router\Router
         arguments: [@request]
         factory: [@router.provider, "createInstance"]
+    view.factory:
+        class: Tourbillon\Response\ViewFactory
     response:
         class: Tourbillon\Response\HttpResponse
