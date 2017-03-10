@@ -17,11 +17,11 @@ abstract class Controller
     {
         $this->serviceLocator = $serviceLocator;
     }
-    
+
     protected function render($path, array $params = array())
     {
         $viewConfig = $this->getConfig()->get('view');
-        return $this->serviceLocator->get('view.factory')->create($path, $params, $viewConfig['template']);
+        return $this->serviceLocator->get('view.factory')->create($viewConfig['resources'] . '/' . $path, $params, $viewConfig['template']);
     }
 
     protected function getConfig()
