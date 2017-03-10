@@ -2,7 +2,7 @@ services:
     request:
         class: Tourbillon\Request\HttpRequest
     router:
-        class: Tourbillon\Router\Router
+        class: Tourbillon\Provider\RouterProvider
         arguments: [@request]
     response:
         class: Tourbillon\Response\HttpResponse
