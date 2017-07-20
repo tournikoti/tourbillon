@@ -38,7 +38,9 @@ abstract class Tourbillon
             'app.root_dir' => $this->getRootDir()
         ]);
         
-        $configurator->importFile($this->configPath);
+        if (null !== $this->configPath) {
+            $configurator->importFile($this->configPath);
+        }
         
         $this->serviceLocator = new ServiceLocator($configurator, (array) $configurator->get('services'));
         $this->serviceLocator->addServices((array) $configurator->get('services'));
