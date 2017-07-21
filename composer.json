@@ -10,7 +10,7 @@
     ],
     "minimum-stability": "stable",
     "require": {
-        "php": ">=5.3.3",
+        "php": ">=5.6",
         "tournikoti/tourbillon-configurator": "^1.2",
         "tournikoti/tourbillon-service-container": "^1.6",
         "tournikoti/tourbillon-router": "^1.0",
