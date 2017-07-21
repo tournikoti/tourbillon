@@ -9,6 +9,8 @@ use Tourbillon\Controller\Controller;
 use Tourbillon\Response\View;
 use Tourbillon\Router\Route;
 use Tourbillon\ServiceContainer\ServiceLocator;
+use Tourbillon\Template\FilterStore;
+use Tourbillon\Template\PluginStore;
 
 /**
  * Description of Tourbillon
@@ -86,6 +88,13 @@ abstract class Tourbillon
         return $controller;
     }
 
+    /**
+     * 
+     * @param Route $route
+     * @param Controller $controller
+     * @return View
+     * @throws Exception
+     */
     private function getView(Route $route, Controller $controller)
     {
         $action = $route->getAction() . 'Action';
@@ -98,6 +107,9 @@ abstract class Tourbillon
         if (!$view instanceof View) {
             throw new Exception("The action {$action} of the controller " . get_class($controller) . " must return instance of " .View::class);
         }
+        
+        PluginStore::install($view);
+        FilterStore::install($view);
         
         return $view;
     }
