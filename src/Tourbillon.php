@@ -107,9 +107,9 @@ abstract class Tourbillon
         if (!$view instanceof View) {
             throw new Exception("The action {$action} of the controller " . get_class($controller) . " must return instance of " .View::class);
         }
-        
-        PluginStore::install($view);
-        FilterStore::install($view);
+                
+        PluginStore::install($view, $this->serviceLocator);
+        FilterStore::install($view, $this->serviceLocator);
         
         return $view;
     }

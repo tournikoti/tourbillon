@@ -8,5 +8,8 @@ namespace Tourbillon\Template;
  * @author gwennael
  */
 interface Plugin {
+
+    public function getName();
     
+    public function getClosure(...$args);
 }

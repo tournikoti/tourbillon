@@ -2,6 +2,9 @@
 
 namespace Tourbillon\Template;
 
+use Tourbillon\Response\View;
+use Tourbillon\ServiceContainer\ServiceLocator;
+
 /**
  * Description of FilterStore
  *
@@ -15,7 +18,7 @@ class FilterStore {
         
     }
     
-    public static function install() {
+    public static function install(View $view, ServiceLocator $serviceLocator) {
         if (null === self::$instance) {
             self::$instance = new self();
         }
