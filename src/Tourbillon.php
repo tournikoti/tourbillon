@@ -36,8 +36,10 @@ abstract class Tourbillon
     public function run()
     {
         $configurator = ConfiguratorFactory::createInstance(realpath(__DIR__.'/../config/config.neon'));
+        
         $configurator->setParameters([
-            'app.root_dir' => $this->getRootDir()
+            'app.root_dir' => $this->getRootDir(),
+            'app.var_dir' => dirname($this->getRootDir()) . '/var'
         ]);
         
         if (null !== $this->configPath) {
