@@ -11,3 +11,8 @@ services:
         class: Tourbillon\Response\ViewFactory
     response:
         class: Tourbillon\Response\HttpResponse
+    dbal.provider:
+        class: Tourbillon\Provider\DbalProvider
+    dbal:
+        class: Tourbillon\Response\HttpResponse
+        factory: [@dbal.provider, "createInstance"]
