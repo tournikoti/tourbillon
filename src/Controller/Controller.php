@@ -44,4 +44,14 @@ abstract class Controller
     {
         return $this->serviceLocator->get('config');
     }
+    
+    /**
+     * 
+     * @param type $name
+     * @return \Tourbillon\Dbal\Connection
+     */
+    protected function getConnection($name = 'default')
+    {
+        return $this->serviceLocator->get('dbal')->getConnection($name);
+    }
 }
