@@ -6,6 +6,7 @@ use Tourbillon\Response\View;
 use Tourbillon\ServiceContainer\ServiceLocator;
 use Tourbillon\Template\Plugin\AssetPlugin;
 use Tourbillon\Template\Plugin\PathPlugin;
+use Tourbillon\Template\Plugin\UrlPlugin;
 
 /**
  * Description of PluginStore
@@ -26,6 +27,7 @@ class PluginStore {
         $this->serviceLocator = $serviceLocator;
         $this->addPlugin($view, AssetPlugin::get($view), ['request']);
         $this->addPlugin($view, PathPlugin::get($view), ['request', 'router']);
+        $this->addPlugin($view, UrlPlugin::get($view), ['request', 'router']);
     }
     
     public static function install(View $view, ServiceLocator $serviceLocator) {
