@@ -16,7 +16,4 @@ abstract class AssetPlugin extends Plugin {
         return 'asset';
     }
 
-    public static function getPluginClassName(View $view) {
-        return __NAMESPACE__ . "\\" . $view->getNameType() . "\\" . substr(strrchr(__CLASS__, "\\"), 1);
-    }
 }

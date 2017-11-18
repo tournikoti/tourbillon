@@ -13,7 +13,7 @@ use Tourbillon\Response\View;
 abstract class Plugin implements Plugable {
     
     public static function get(View $view) {
-        $class = $this->getPluginClassName($view);
+        $class = self::getPluginClassName($view);
         
         if (!class_exists($class)) {
             throw new Exception("Plugin \"$class\" does not exist");
@@ -22,6 +22,15 @@ abstract class Plugin implements Plugable {
         return new $class();
     }
     
-    protected abstract function getPluginClassName(View $view);
+    protected static function getPluginClassName(View $view) {
+        $namespace = substr(get_called_class(), 0, strripos(get_called_class(), "\\"));
+        $class = $namespace . "\\" . $view->getNameType() . "\\" . substr(strrchr(get_called_class(), "\\"), 1); 
+                 
+        if (!class_exists($class)) { 
+            throw new Exception("Plugin \"$class\" does not exist"); 
+        } 
+         
+        return new $class(); 
+    }
     
 }

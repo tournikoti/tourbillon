@@ -16,7 +16,4 @@ abstract class UrlPlugin extends Plugin {
         return 'url';
     }
 
-    public static function getPluginClassName(View $view) {
-        return __NAMESPACE__ . "\\" . $view->getNameType() . "\\" . substr(strrchr(__CLASS__, "\\"), 1);
-    }
 }
