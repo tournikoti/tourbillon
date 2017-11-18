@@ -24,13 +24,7 @@ abstract class Plugin implements Plugable {
     
     protected static function getPluginClassName(View $view) {
         $namespace = substr(get_called_class(), 0, strripos(get_called_class(), "\\"));
-        $class = $namespace . "\\" . $view->getNameType() . "\\" . substr(strrchr(get_called_class(), "\\"), 1); 
-                 
-        if (!class_exists($class)) { 
-            throw new Exception("Plugin \"$class\" does not exist"); 
-        } 
-         
-        return new $class(); 
+        return $namespace . "\\" . $view->getNameType() . "\\" . substr(strrchr(get_called_class(), "\\"), 1); 
     }
     
 }
