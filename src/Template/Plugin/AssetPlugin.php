@@ -10,19 +10,13 @@ use Tourbillon\Template\Plugin;
  *
  * @author gwennael
  */
-abstract class AssetPlugin implements Plugin {
+abstract class AssetPlugin extends Plugin {
 
     public function getName() {
         return 'asset';
     }
 
-    public static function get(View $view) {
-        $class = __NAMESPACE__ . "\\" . $view->getNameType() . "\\" . substr(strrchr(__CLASS__, "\\"), 1);
-        
-        if (!class_exists($class)) {
-            throw new Exception("Plugin \"$class\" does not exist");
-        }
-        
-        return new $class();
+    public static function getPluginClassName(View $view) {
+        return __NAMESPACE__ . "\\" . $view->getNameType() . "\\" . substr(strrchr(__CLASS__, "\\"), 1);
     }
 }
