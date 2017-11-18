@@ -4,14 +4,14 @@ namespace Tourbillon\Template\Plugin\Dwoo;
 
 use Dwoo\Core;
 use Tourbillon\Request\HttpRequest;
-use Tourbillon\Template\Plugin\AssetPlugin as BaseAssetPlugin;
+use Tourbillon\Template\Plugin\AssetPlugin as BasePlugin;
 
 /**
  * Description of AssetPlugin
  *
  * @author gwennael
  */
-class AssetPlugin extends BaseAssetPlugin {
+class AssetPlugin extends BasePlugin {
 
     public function getClosure(...$args) {
         $request = $this->getRequest($args);

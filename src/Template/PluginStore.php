@@ -5,6 +5,7 @@ namespace Tourbillon\Template;
 use Tourbillon\Response\View;
 use Tourbillon\ServiceContainer\ServiceLocator;
 use Tourbillon\Template\Plugin\AssetPlugin;
+use Tourbillon\Template\Plugin\PathPlugin;
 
 /**
  * Description of PluginStore
@@ -23,7 +24,8 @@ class PluginStore {
 
     public function __construct(View $view, ServiceLocator $serviceLocator) {
         $this->serviceLocator = $serviceLocator;
-        $this->addPlugin($view, AssetPlugin::get($view));
+        $this->addPlugin($view, AssetPlugin::get($view), ['request']);
+        $this->addPlugin($view, PathPlugin::get($view), ['router']);
     }
     
     public static function install(View $view, ServiceLocator $serviceLocator) {
@@ -32,8 +34,15 @@ class PluginStore {
         }
     }
     
-    protected function addPlugin(View $view, Plugin $plugin) {
-        $view->addPlugin($plugin->getName(), $plugin->getClosure($this->serviceLocator->get('request')));
+    protected function addPlugin(View $view, Plugin $plugin, array $serviceName = array()) {
+        $view->addPlugin($plugin->getName(), $plugin->getClosure(...$this->getServices($serviceName)));
     }
 
+    private function getServices(array $serviceName = array()) {
+        $services = [];
+        foreach ($serviceName as $name) {
+            $services[] = $this->serviceLocator->get($name);
+        }
+        return $services;
+    }
 }
