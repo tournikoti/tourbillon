@@ -16,7 +16,8 @@
         "tournikoti/tourbillon-router": "^1.0",
         "tournikoti/tourbillon-response": "^1.0",
         "tournikoti/tourbillon-dbal": "^1.0",
-        "tournikoti/tourbillon-form": "^1.0"
+        "tournikoti/tourbillon-form": "^1.0",
+        "tournikoti/tourbillon-request": "^1.0"
     },
     "autoload": {
         "psr-4": {
