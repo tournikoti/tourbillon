@@ -25,7 +25,7 @@ class PluginStore {
     public function __construct(View $view, ServiceLocator $serviceLocator) {
         $this->serviceLocator = $serviceLocator;
         $this->addPlugin($view, AssetPlugin::get($view), ['request']);
-        $this->addPlugin($view, PathPlugin::get($view), ['router']);
+        $this->addPlugin($view, PathPlugin::get($view), ['request', 'router']);
     }
     
     public static function install(View $view, ServiceLocator $serviceLocator) {
