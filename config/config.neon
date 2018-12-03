@@ -4,7 +4,6 @@ services:
     router.provider:
         class: Tourbillon\Provider\RouterProvider
     router:
-        class: Tourbillon\Router\Router
         arguments: [@request]
         factory: [@router.provider, "createInstance"]
     view.factory:
@@ -14,5 +13,4 @@ services:
     dbal.provider:
         class: Tourbillon\Provider\DbalProvider
     dbal:
-        class: Tourbillon\Response\HttpResponse
         factory: [@dbal.provider, "createInstance"]
