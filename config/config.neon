@@ -14,3 +14,12 @@ services:
         class: Tourbillon\Provider\DbalProvider
     dbal:
         factory: [@dbal.provider, "createInstance"]
+    view.extension.asset:
+        class: Tourbillon\Plugin\Asset
+        arguments: [@request]
+    view.extension.path:
+        class: Tourbillon\Plugin\Path
+        arguments: [@request, @router]
+    view.extension.url:
+            class: Tourbillon\Plugin\Url
+            arguments: [@request, @router]

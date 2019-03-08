@@ -2,7 +2,10 @@
 
 namespace Tourbillon\Controller;
 
+use Tourbillon\Response\View;
+use Tourbillon\ServiceContainer\ServiceContainerAwareInterface;
 use Tourbillon\ServiceContainer\ServiceLocator;
+use Tourbillon\Template\Twig\Extension;
 
 /**
  * Description of Controller
@@ -34,7 +37,24 @@ abstract class Controller
             'compile_path' => $this->getConfig()->getParameter('app.var_dir') . '/views/cache',
         ]);
 
+        $this->addPlugin($view);
+
         return $view;
+    }
+
+    private function addPlugin(View $view)
+    {
+        $extensionClass = 'Tourbillon\\Template\\' . $view->getNameType() . '\\Extension';
+
+        if (class_exists($extensionClass)) {
+            $extension = new $extensionClass();
+
+            if ($extension instanceof ServiceContainerAwareInterface) {
+                $extension->setServiceLocator($this->serviceLocator);
+            }
+
+            $view->addPlugin($extension);
+        }
     }
 
     /**
