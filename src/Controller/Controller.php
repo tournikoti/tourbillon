@@ -27,12 +27,13 @@ abstract class Controller
     protected function render($path, array $params = array())
     {
         $viewConfig = $this->getConfig()->get('view');
-        $view = $this->serviceLocator->get('view.factory')->create($viewConfig['resources'] . '/' . $path, $params, $viewConfig['template']);
+        $view = $this->serviceLocator->get('view.factory')->create($viewConfig['resources'], $path, $params, $viewConfig['template']);
         
         $view->setConfig([
-            'compile_path' => $this->getConfig()->getParameter('app.var_dir') . '/views/cache'
+            'template_path' => $this->getConfig()->getParameter('app.root_dir') . '/views',
+            'compile_path' => $this->getConfig()->getParameter('app.var_dir') . '/views/cache',
         ]);
-        
+
         return $view;
     }
 
