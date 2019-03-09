@@ -2,6 +2,7 @@
 
 namespace Tourbillon\Controller;
 
+use Tourbillon\Request\HttpRequest;
 use Tourbillon\Response\View;
 use Tourbillon\ServiceContainer\ServiceContainerAwareInterface;
 use Tourbillon\ServiceContainer\ServiceLocator;
@@ -74,5 +75,14 @@ abstract class Controller
     protected function getConnection($name = 'default')
     {
         return $this->serviceLocator->get('dbal')->getConnection($name);
+    }
+
+    /**
+     * @return HttpRequest
+     * @throws \Exception
+     */
+    protected function getRequest()
+    {
+        return $this->serviceLocator->get('request');
     }
 }

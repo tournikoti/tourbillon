@@ -24,6 +24,7 @@ class Extension extends AbstractExtension implements ExtensionInterface, Service
             new TwigFunction('asset', [$this->serviceLocator->get('view.extension.asset'), 'get']),
             new TwigFunction('path', [$this->serviceLocator->get('view.extension.path'), 'get']),
             new TwigFunction('url', [$this->serviceLocator->get('view.extension.url'), 'get']),
+            new TwigFunction('form_value', [$this->serviceLocator->get('view.extension.form_value'), 'get']),
         ];
     }
 }

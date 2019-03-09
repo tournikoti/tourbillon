@@ -21,5 +21,7 @@ services:
         class: Tourbillon\Plugin\Path
         arguments: [@request, @router]
     view.extension.url:
-            class: Tourbillon\Plugin\Url
-            arguments: [@request, @router]
+        class: Tourbillon\Plugin\Url
+        arguments: [@request, @router]
+    view.extension.form_value:
+        class: Tourbillon\Plugin\FormValue
